@@ -10,3 +10,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  @apply bg-neutral-900 text-neutral-300;
+}
