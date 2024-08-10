@@ -15,7 +15,11 @@ const Header = () => {
   };
 
   useEffect(() => {
-    navigate(`/search?q=${searchInput}`);
+
+    if (searchInput) {
+      navigate(`/search?q=${searchInput}`);
+    }
+
   }, [searchInput]);
 
   return (
