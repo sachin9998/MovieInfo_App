@@ -1,25 +1,18 @@
-import { IoSearchOutline } from "react-icons/io5";
-
 import { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { IoSearchOutline } from "react-icons/io5";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import user_icon from "../assets/user.png";
+import { navigation } from "../constants/navigation";
 
 const Header = () => {
   const [searchInput, setSearchInput] = useState("");
 
   const navigate = useNavigate();
 
-  const navigation = [
-    {
-      label: "TV Shows",
-      href: "tv",
-    },
-    {
-      label: "Movies",
-      href: "movies",
-    },
-  ];
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   useEffect(() => {
     navigate(`/search?q=${searchInput}`);
@@ -29,13 +22,13 @@ const Header = () => {
     <header className="fixed top-0 w-full h-16 bg-neutral-600 bg-opacity-75">
       <div className="container mx-auto px-3 flex items-center h-full">
         {/* Logo */}
-        <div>
+        <Link to={"/"}>
           <img src={logo} alt="Movie Site Info Logo" width={120} />
-        </div>
+        </Link>
 
         {/* Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 ml-5">
-          {navigation.map((nav, index) => {
+          {navigation.map((nav) => {
             return (
               <div key={nav.label}>
                 <NavLink
@@ -55,7 +48,7 @@ const Header = () => {
         <div className="ml-auto flex items-center gap-5">
           {/* User Input */}
 
-          <form className="flex items-center gap-2">
+          <form className="flex items-center gap-2" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Search here..."
