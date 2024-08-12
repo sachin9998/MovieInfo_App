@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
@@ -6,15 +7,31 @@ const BannerHome = () => {
   const bannerData = useSelector(state => state.movieoData.bannerData);
   const imageURL = useSelector(state => state.movieoData.imageURL)
 
-  // const [currentImage, setCurrentImage] = useState
+  const [currentImage, setCurrentImage] = useState(0);
 
   const handleNext = () => {
-
-  }
+    setCurrentImage((prev) => (prev >= bannerData.length - 1 ? 0 : prev + 1));
+  };
 
   const handlePrevious = () => {
+    setCurrentImage((prev) => (prev <= 0 ? bannerData.length - 1 : prev - 1));
+  };
 
-  }
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+      if (currentImage < bannerData.length - 1) {
+        handleNext();
+      } else {
+        setCurrentImage(0);
+      }
+    }, 3000);
+
+
+    return () => clearInterval(interval)
+  }, [bannerData, imageURL])
+
 
   return (
     <section className="w-full h-full">
@@ -22,10 +39,10 @@ const BannerHome = () => {
         {
           bannerData.map((data) => {
             return (
-              <div key={data.id} className="min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group">
+              <div key={data.id} className="min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group transition-all duration-500" style={{ transform: `translateX(-${currentImage * 100}%)` }}>
 
                 <div className="w-full h-full">
-                  <img src={imageURL + data.backdrop_path} alt={data.title} className="h-full w-full object-cover" />
+                  <img src={imageURL + data.backdrop_path} alt={data.title || data.name} className="h-full w-full object-cover" />
                 </div>
 
                 {/* Next and Previous image */}
@@ -46,7 +63,7 @@ const BannerHome = () => {
                 <div className="container mx-auto">
                   <div className="container mx-auto w-full absolute bottom-0 max-w-md px-3">
 
-                    <h2 className="font-bold text-2xl lg:text-4xl text-white drop-shadow-3xl">{data.title}</h2>
+                    <h2 className="font-bold text-2xl lg:text-4xl text-white drop-shadow-3xl">{data?.title || data.name}</h2>
 
                     <p className="ok text-ellipsis line-clamp-3 my-2">{data.overview}</p>
 
