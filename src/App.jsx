@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import MobileNavigation from "./components/MobileNavigation";
@@ -46,7 +47,9 @@ const App = () => {
       <div>
         <Outlet />
       </div>
-      {/* <Footer /> */}
+
+      <Footer />
+
       <MobileNavigation />
     </main>
   );

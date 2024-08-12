@@ -5,7 +5,7 @@ const MobileNavigation = () => {
   console.log(mobileNavigation);
 
   return (
-    <section className="lg:hidden h-14 bg-neutral-600 bg-opacity-40 fixed bottom-0 w-full text-neutral-400">
+    <section className="lg:hidden h-14 bg-black bg-opacity-70 backdrop-blur-2xl fixed bottom-0 w-full text-neutral-400 z-40">
 
       <div className="flex items-center justify-between h-full">
 

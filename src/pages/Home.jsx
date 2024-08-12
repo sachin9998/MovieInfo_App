@@ -1,33 +1,39 @@
 import { useSelector } from "react-redux";
 import BannerHome from "../components/BannerHome";
-import Card from "../components/Card";
+// import Card from "../components/Card";
+import HorizontalScrollCard from "../components/HorizontalScrollCard";
+import useFetch from "../hooks/useFetch";
 
 const Home = () => {
 
   const trendingData = useSelector(state => state.movieoData.bannerData);
 
-  console.log("OK", trendingData);
+  const { data: topRatedTVShows } = useFetch("tv/top_rated");
 
+  const { data: topRatedMovies } = useFetch("movie/top_rated");
+
+  const { data: tvOnTheAir } = useFetch("tv/on_the_air");
+
+  const { data: upcomingMovies } = useFetch("movie/upcoming");
 
   return (
     <div>
       <BannerHome />
 
-      <div className="container mx-auto px-3 my-10">
+      {/* Treding Now */}
+      <HorizontalScrollCard data={trendingData} heading={"Trending Now"} trending={true} />
 
-        <h2 className="text-xl lg:text-2xl font-bold mb-2 text-white">Trending Show</h2>
+      {/* On Air Now */}
+      <HorizontalScrollCard data={tvOnTheAir} heading={"On Air Now"} />
 
-        <div className="grid grid-cols-[repeat(auto-fit,230px)] grid-flow-col gap-6 overflow-hidden">
-          {
-            trendingData.map((data, index) => {
-              return <Card key={data.id} data={data} index={index + 1} trending={true}/>
-            })
-          }
-        </div>
+      {/* Top Rated Movies */}
+      <HorizontalScrollCard data={topRatedMovies} heading={"Top Rated Movies"} />
 
-      </div>
+      {/* Top Rated TV Shows */}
+      <HorizontalScrollCard data={topRatedTVShows} heading={"Top Rated TV Shows"} />
 
-
+      {/* Upcoming Movies */}
+      <HorizontalScrollCard data={upcomingMovies} heading={"Upcoming Movies"} />
 
     </div>
   );
