@@ -37,9 +37,9 @@ const BannerHome = () => {
     <section className="w-full h-full">
       <div className="flex min-h-full max-h-[95vh] overflow-hidden">
         {
-          bannerData.map((data) => {
+          bannerData.map((data, index) => {
             return (
-              <div key={data.id} className="min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group transition-all duration-500" style={{ transform: `translateX(-${currentImage * 100}%)` }}>
+              <div key={data.id + "bannerHome" + index} className="min-w-full min-h-[450px] lg:min-h-full overflow-hidden relative group transition-all duration-500" style={{ transform: `translateX(-${currentImage * 100}%)` }}>
 
                 <div className="w-full h-full">
                   <img src={imageURL + data.backdrop_path} alt={data.title || data.name} className="h-full w-full object-cover" />

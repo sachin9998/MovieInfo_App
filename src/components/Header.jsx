@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import user_icon from "../assets/user.png";
 import { navigation } from "../constants/navigation";
 
 const Header = () => {
-  const [searchInput, setSearchInput] = useState("");
-
+  const location = useLocation();
+  // const removeSpace = location?.search?.slice(3)?.split("%20")?.join(" ");
+  const [searchInput, setSearchInput] = useState(location.search.slice(3));
   const navigate = useNavigate();
+
+  console.log(location.search.slice(3), "::::");
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -32,9 +36,9 @@ const Header = () => {
 
         {/* Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 ml-5">
-          {navigation.map((nav) => {
+          {navigation.map((nav, index) => {
             return (
-              <div key={nav.label}>
+              <div key={nav.label + "header" + index}>
                 <NavLink
                   to={nav.href}
                   className={({ isActive }) =>

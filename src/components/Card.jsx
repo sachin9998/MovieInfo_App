@@ -2,13 +2,19 @@ import moment from "moment";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Card = ({ data, trending, index }) => {
+const Card = ({ data, trending, index, media_type }) => {
 
     const imageURL = useSelector(state => state.movieoData.imageURL)
 
+    const mediaType = data.media_type ?? media_type
+
     return (
-        <Link to={"/"+data.media_type+"/"+data.id} className="w-full min-w-[230px] max-w-[230px] rounded h-80 overflow-hidden relative">
-            <img src={imageURL + data.poster_path} alt="" />
+        <Link to={"/" + mediaType + "/" + data.id} className="w-full min-w-[230px] max-w-[230px] rounded h-80 overflow-hidden block relative hover:scale-105 transition-all">
+
+            {
+                data?.poster_path ? <img src={imageURL + data.poster_path} alt="" /> : <div className="b bg-neutral-800 h-full w-full flex justify-center items-center">No Image Found <br /> <br /> <br /> <br /></div>
+            }
+
 
             <div className="absolute top-4">
                 {
