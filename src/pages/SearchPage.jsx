@@ -9,9 +9,12 @@ const SearchPage = () => {
   const [page, setPage] = useState(1)
   const navigate = useNavigate();
 
+  console.log(".......", searchData);
+  
+
   const fetchData = async () => {
     try {
-      const response = await axios.get(`/search/collection`, {
+      const response = await axios.get(`/search/multi`, {
         params: { query: location?.search?.slice(3), page: page },
       });
 
@@ -50,8 +53,8 @@ const SearchPage = () => {
 
       {/* Mobile version Search Box */}
       <div className="lg:hidden my-2 mx-1 sticky top-[70px] z-50">
-        
-        <input type="text" placeholder="Search here..." onChange={(e) => navigate(`/search?q=${e.target.value}`)} 
+
+        <input type="text" placeholder="Search here..." onChange={(e) => navigate(`/search?q=${e.target.value}`)}
           className="px-4 py-1 text-lg w-full bg-white rounded-full text-neutral-900"
         />
 
