@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import { mobileNavigation } from "../constants/navigation";
 
 const MobileNavigation = () => {
-  console.log(mobileNavigation);
 
   return (
     <section className="lg:hidden h-14 bg-black bg-opacity-70 backdrop-blur-2xl fixed bottom-0 w-full text-neutral-400 z-40">

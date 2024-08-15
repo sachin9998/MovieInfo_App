@@ -16,6 +16,12 @@ const Header = () => {
     event.preventDefault();
   };
 
+  const handleSearchButton = () => {
+    if (searchInput === "") {
+      window.alert("Enter your query");
+    }
+  }
+
   useEffect(() => {
 
     if (searchInput) {
@@ -63,7 +69,10 @@ const Header = () => {
               value={searchInput}
             />
 
-            <button className="text-2xl text-white">
+            {/* <Link to={"/search"} className="text-2xl text-white">
+              <IoSearchOutline />
+            </Link> */}
+            <button onClick={handleSearchButton} className="hidden lg:block text-2xl text-white">
               <IoSearchOutline />
             </button>
           </form>
