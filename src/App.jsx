@@ -44,7 +44,7 @@ const App = () => {
   return (
     <main className="pb-14 lg:pb-0">
       <Header />
-      <div className="min-h-[90vh]">
+      <div className="min-h-[89vh]">
         <Outlet />
       </div>
 

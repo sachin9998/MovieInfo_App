@@ -10,27 +10,30 @@ const BannerHome = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
   const handleNext = () => {
-    setCurrentImage((prev) => (prev >= bannerData.length - 1 ? 0 : prev + 1));
+    if (currentImage < bannerData.length - 1) {
+      setCurrentImage(preve => preve + 1)
+    }
   };
 
   const handlePrevious = () => {
-    setCurrentImage((prev) => (prev <= 0 ? bannerData.length - 1 : prev - 1));
+    if (currentImage > 0) {
+      setCurrentImage(preve => preve - 1)
+    }
   };
 
 
   useEffect(() => {
-
     const interval = setInterval(() => {
       if (currentImage < bannerData.length - 1) {
-        handleNext();
+        handleNext()
       } else {
-        setCurrentImage(0);
+        setCurrentImage(0)
       }
-    }, 3000);
+    }, 5000)
 
 
     return () => clearInterval(interval)
-  }, [bannerData, imageURL])
+  }, [bannerData, imageURL, currentImage])
 
 
   return (

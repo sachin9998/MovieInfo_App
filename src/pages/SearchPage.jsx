@@ -10,7 +10,7 @@ const SearchPage = () => {
   const navigate = useNavigate();
 
   console.log(".......", searchData);
-  
+
 
   const fetchData = async () => {
     try {
@@ -28,10 +28,17 @@ const SearchPage = () => {
     }
   };
 
+  const query = location?.search?.slice(3);
+
   useEffect(() => {
-    setPage(1);
-    setSearchData([]);
-    fetchData();
+
+    if (query) {
+      setPage(1);
+      setSearchData([]);
+      fetchData();
+    }
+
+
   }, [location?.search])
 
   const handleScroll = () => {
@@ -41,7 +48,9 @@ const SearchPage = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (query) {
+      fetchData();
+    }
   }, [page]);
 
   useEffect(() => {
@@ -55,6 +64,7 @@ const SearchPage = () => {
       <div className="lg:hidden my-2 mx-1 sticky top-[70px] z-50">
 
         <input type="text" placeholder="Search here..." onChange={(e) => navigate(`/search?q=${e.target.value}`)}
+          value={query?.split("%20")?.join(" ")}
           className="px-4 py-1 text-lg w-full bg-white rounded-full text-neutral-900"
         />
 
