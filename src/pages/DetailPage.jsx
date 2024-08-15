@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Divider from "../components/Divider";
@@ -15,28 +15,15 @@ const DetailPage = () => {
   const params = useParams();
   const imageURL = useSelector((state) => state.movieoData.imageURL);
 
-  const [castData, setCastData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [playVideo, setPlayVideo] = useState(false);
   const [playVideoID, setPlayVideoID] = useState("");
 
-  const fetchData = async (endpoint) => {
-    try {
-      // setLoading(true);
-      const response = await axios.get(endpoint);
-      setCastData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-    // setLoading(false);
-  }
-
   // Fetching Required Data
-  const { data } = useFetchDetails(`/${params?.explore}/${params?.id}`);
+  const { data, loading: dataLoading } = useFetchDetails(`/${params?.explore}/${params?.id}`);
 
-  // const { data: castData } = useFetchDetails(
-  //   `/${params?.explore}/${params?.id}/credits`
-  // );
+  const { data: castData, loading: castDataLoading } = useFetchDetails(
+    `/${params?.explore}/${params?.id}/credits`
+  );
 
   const { data: similarData } = useFetch(
     `/${params?.explore}/${params?.id}/similar`
@@ -52,24 +39,15 @@ const DetailPage = () => {
 
   // Important Variables
   const duration = (data?.runtime / 60)?.toFixed(1)?.split(".");
+
   const writer = castData?.crew
     ?.filter((el) => el?.job === "Writer")
     ?.map((el) => el?.name)
     ?.join(", ");
 
+  const director = castData?.crew?.length > 0 ? castData?.crew[0]?.name : null;
 
-  useEffect(() => {
-    fetchData(`/${params?.explore}/${params?.id}/credits`);
-  }, [])
-
-  // const director = castData?.crew[0]?.name || "OK";
-
-  // console.log(director);
-  // console.log(data);
-
-  // console.log("CAST DATA ::::: ", castData);
-
-  if (loading) {
+  if (castDataLoading && dataLoading) {
     return <>
       <Loader />
     </>
@@ -140,9 +118,17 @@ const DetailPage = () => {
 
             <span>|</span>
 
-            <p>
-              Duration: {duration[0]}h {duration[1]}m
-            </p>
+            {
+              data.runtime ? (<p>
+                Duration: {duration[0]}h {duration[1]}m
+              </p>) : (
+                <>
+                  <p>Seasons: {data.number_of_seasons}</p>
+                  <p>Episodes:  {data?.number_of_episodes}</p>
+                </>
+              )
+            }
+
           </div>
 
           <Divider />
@@ -154,9 +140,9 @@ const DetailPage = () => {
 
             <Divider />
 
-            <div className="flex items-center gap-3 my-3 text-center">
+            <div className="flex flex-col items-start lg:flex-row lg:items-center gap-3 my-3 text-center">
               <p>Status: {data?.status}</p>
-              <span>|</span>
+              <span className="hidden lg:block">|</span>
               <p>
                 Released Date :{" "}
                 {moment(data?.release_date).format("MMMM Do YYYY")}
@@ -168,9 +154,9 @@ const DetailPage = () => {
           </div>
 
           <div>
-            {/* <p>
-              <span className="text-white">Director</span> : {castData?.crew[0]?.name}
-            </p> */}
+            <p>
+              <span className="text-white">Director</span> : {director}
+            </p>
 
             <Divider />
 
