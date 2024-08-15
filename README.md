@@ -23,6 +23,11 @@ GitHub Repo Link: [![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-green
 - **Styling**: Tailwind CSS
 - **Responsive Design**: Tailwind CSS & Custom Media Queries
 
+## 📸 Screenshots
+
+![MovieO Screenshot](./screenshots/homepage.png)
+_Example of the homepage showing the latest movies._
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -75,11 +80,6 @@ Ensure you have the following installed:
    ```
    http://localhost:3000
    ```
-
-## 📸 Screenshots
-
-![MovieO Screenshot](./screenshots/homepage.png)
-_Example of the homepage showing the latest movies._
 
 ## 📂 Project Structure
 
