@@ -7,7 +7,7 @@ import router from "./routes/index.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.jsx";
 
-// Setup Axios
+// Setting up Axios
 axios.defaults.baseURL = "https://api.themoviedb.org/3/";
 
 axios.defaults.headers.common["Authorization"] =

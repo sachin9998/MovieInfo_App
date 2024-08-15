@@ -49,7 +49,6 @@ const App = () => {
       </div>
 
       <Footer />
-
       <MobileNavigation />
     </main>
   );

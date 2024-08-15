@@ -22,7 +22,6 @@ const SearchPage = () => {
         return [...prev, ...response.data.results];
       });
 
-
     } catch (error) {
       console.log(error);
     }
@@ -89,9 +88,6 @@ const SearchPage = () => {
             );
           })}
         </div>
-
-
-
 
       </div>
     </div>);

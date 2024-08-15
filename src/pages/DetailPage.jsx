@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import Divider from "../components/Divider";
 import HorizontalScrollCard from "../components/HorizontalScrollCard";
 import Loader from "../components/Loader.jsx";
+import VideoPlay from "../components/VideoPlay.jsx";
 import useFetch from "../hooks/useFetch.js";
 import useFetchDetails from "../hooks/useFetchDetails.js";
 axios
@@ -15,7 +16,9 @@ const DetailPage = () => {
   const imageURL = useSelector((state) => state.movieoData.imageURL);
 
   const [castData, setCastData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [playVideo, setPlayVideo] = useState(false);
+  const [playVideoID, setPlayVideoID] = useState("");
 
   const fetchData = async (endpoint) => {
     try {
@@ -42,6 +45,11 @@ const DetailPage = () => {
     `/${params?.explore}/${params?.id}/recommendations`
   );
 
+  const handlePlayVideo = (data) => {
+    setPlayVideoID(data);
+    setPlayVideo(true);
+  }
+
   // Important Variables
   const duration = (data?.runtime / 60)?.toFixed(1)?.split(".");
   const writer = castData?.crew
@@ -57,13 +65,9 @@ const DetailPage = () => {
   // const director = castData?.crew[0]?.name || "OK";
 
   // console.log(director);
-
-
   // console.log(data);
-  console.log("CAST DATA ::::: ", castData);
-  // console.log("CAST DATA Actor ::::: ", castData?.crew[0]?.name);
-  // console.log(data?.name);
-  // console.log(data?.original_name);
+
+  // console.log("CAST DATA ::::: ", castData);
 
   if (loading) {
     return <>
@@ -104,11 +108,17 @@ const DetailPage = () => {
               alt=""
               className="h-80 w-60 object-cover rounded"
             />
+
           ) : (
             <div className="h-80 w-60 rounded bg-neutral-900 flex justify-center items-center">
               No Image Found <br /> <br /> <br /> <br />
             </div>
           )}
+
+          <button onClick={() => handlePlayVideo(data)} className="mt-3 w-full py-2 px-4 text-center bg-white text-black rounded font-bold text-lg hover:bg-gradient-to-l from-red-500 to-orange-500 hover:scale-105 transition-all">
+            Play Now
+          </button>
+
         </div>
 
         {/* Title */}
@@ -209,6 +219,9 @@ const DetailPage = () => {
           media_type={params.explore}
         />
       </div>
+
+      {/* Video Player */}
+      {playVideo && <VideoPlay data={playVideoID} close={() => setPlayVideo(false)} media_type={params?.explore} />}
     </div>
   );
 };

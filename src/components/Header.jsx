@@ -11,8 +11,6 @@ const Header = () => {
   const [searchInput, setSearchInput] = useState(location.search.slice(3));
   const navigate = useNavigate();
 
-  console.log(location.search.slice(3), "::::");
-
 
   const handleSubmit = (event) => {
     event.preventDefault();

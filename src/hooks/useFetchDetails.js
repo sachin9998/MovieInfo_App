@@ -6,15 +6,18 @@ const useFetchDetails = (endpoint) => {
     const [loading, setLoading] = useState(false);
 
     const fetchData = async () => {
+
+        if (!endpoint) return;
+
         try {
             setLoading(true);
             const response = await axios.get(endpoint);
             setData(response.data);
         } catch (error) {
             console.log(error);
-
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     }
 
     useEffect(() => {
