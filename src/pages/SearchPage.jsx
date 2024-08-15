@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
-import Loader from "../components/Loader";
+import SmallLoader from "../components/SmallLoader";
 
 const SearchPage = () => {
   const location = useLocation();
@@ -75,7 +75,7 @@ const SearchPage = () => {
         {loading ? (
           <>
             {" "}
-            <Loader />{" "}
+            <SmallLoader />{" "}
           </>
         ) : (
           <div className="grid grid-cols-[repeat(auto-fit,230px)] gap-6 justify-center lg:justify-start">
