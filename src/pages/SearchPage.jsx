@@ -2,18 +2,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Card from "../components/Card";
+import Loader from "../components/Loader";
 
 const SearchPage = () => {
   const location = useLocation();
   const [searchData, setSearchData] = useState([]);
   const [page, setPage] = useState(1)
   const navigate = useNavigate();
-
-  console.log(".......", searchData);
-
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(`/search/multi`, {
         params: { query: location?.search?.slice(3), page: page },
       });
@@ -24,6 +24,10 @@ const SearchPage = () => {
 
     } catch (error) {
       console.log(error);
+    }
+
+    finally {
+      setLoading(false);
     }
   };
 
@@ -56,7 +60,13 @@ const SearchPage = () => {
     window.addEventListener("scroll", handleScroll);
   }, []);
 
-  return (
+  if (loading) {
+    <>
+      <Loader />
+    </>
+  }
+
+  else return (
     <div className="py-16">
 
       {/* Mobile version Search Box */}
